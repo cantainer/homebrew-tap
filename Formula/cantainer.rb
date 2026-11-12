@@ -2,21 +2,21 @@
 class Cantainer < Formula
   desc "Run every executable as a least-privilege capsule"
   homepage "https://github.com/cantainer/cantainer"
+  # A top-level URL so the formula loads everywhere; on macOS, depends_on :linux then refuses
+  # with a clear message (cants need a Linux kernel) instead of failing to load.
+  url "https://github.com/cantainer/cantainer/releases/download/v0.0.3/cant-v0.0.3-x86_64-unknown-linux-musl.tar.gz"
   version "0.0.3"
+  sha256 "9eac51becb7db202983c85e5e767cdda4927cb957d3379208a0a3a8cffc35bb6"
   license any_of: ["MIT", "Apache-2.0"]
 
-  depends_on :linux
-
   on_linux do
-    on_intel do
-      url "https://github.com/cantainer/cantainer/releases/download/v0.0.3/cant-v0.0.3-x86_64-unknown-linux-musl.tar.gz"
-      sha256 "9eac51becb7db202983c85e5e767cdda4927cb957d3379208a0a3a8cffc35bb6"
-    end
     on_arm do
       url "https://github.com/cantainer/cantainer/releases/download/v0.0.3/cant-v0.0.3-aarch64-unknown-linux-musl.tar.gz"
       sha256 "4eb4ade834f2c518454940511c39de24aba8cf58fbe991ea7ecdf39d50f57300"
     end
   end
+
+  depends_on :linux
 
   def install
     bin.install "cant"
